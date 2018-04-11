@@ -1,0 +1,145 @@
+1.	Repository
+	Working Directory
+
+	.git目录是 Git 的 Repository
+	.git里面有:stage 暂存区、master branch、
+		   HEAD指针:指向 Master、master指针:指向master branch
+	branch:
+
+	命令git checkout -- readme.txt：把readme.txt文件在工作区的修改全部撤销，这里有两种情况：
+
+		一种是readme.txt自修改后还没有被放到暂存区，现在，撤销修改就回到和版本库一模一样的状态；
+
+		一种是readme.txt已经添加到暂存区后，又作了修改，现在，撤销修改就回到添加到暂存区后的状态。
+
+	
+	
+	场景1：当你改乱了工作区某个文件的内容，想直接丢弃工作区的修改时，用命令git checkout -- file。
+
+	场景2：当你不但改乱了工作区某个文件的内容，还添加到了暂存区时，想丢弃修改，分两步，第一步用命令git reset HEAD file，就回到了场景1，第二步按场景1操作。
+
+	场景3：已经提交了不合适的修改到版本库时，想要撤销本次提交，参考版本回退一节，不过前提是没有推送到远程库。
+
+
+2.操作
+	
+	建立 Repository:
+	git init 命令把这个目录变成Git可以管理的仓库
+	并会在该目录下创建 .git 目录，用 ls -a 可以看到
+
+	①.添加文件到 Repository:
+		git add 文件
+
+	②.提交文件到 Repository:
+		git commit -m "说明文字"
+
+
+	git status可以查看 Repository 的状态:
+		①.工作区的文件被修改过，但没有准备提交
+		②.将要被提交的修改在是哪些文件
+
+
+	git diff 文件:
+		查看文件修改的哪些内容, Unix 标准 diff 格式
+	git diff HEAD -- readme.txt
+		查看 Repository 和工作区的版本区别	
+		
+
+	git log:
+		显示从最近到最远的 commit 日志
+
+	git log --pretty=oneline --abbrev-commit:
+		简洁显示commit id
+
+	git log --graph --pretty=oneline --abbrev-commit:
+		图像显示分支合并情况
+
+	git reflog:
+		显示命令历史，
+
+
+
+	git reset --hard ID号/HEAD指针：
+		版本回滚
+
+
+	多次修改，多次 ADD 到 stage;一次 Commit:
+	第一次修改 -> git add -> 第二次修改 -> git add -> git commit
+
+	git checkout -- 文件:
+		撤销 工作区 文件的修改
+
+
+	git reset HEAD 文件:
+		撤销 stage 区 文件的修改
+
+	
+
+	删除 Repository 的文件:
+		git rm 文件:
+			删除工作区文件,并将该修改 Add 至 stage 区
+		git commit -m "说明文字":
+			提交该修改,	
+
+
+3.远程仓库:
+	①.创建 SSH Key:
+		在主目录下，可用 cd ~ 命令到达,
+		输入 ssh-keygen -t rsa -C "571573084@qq.com"  一路回车
+		主目录下有 id_rsa 和 id_rsa.pub，一个私钥，一个公钥。
+
+	
+		在github创建 SSH Key 和输入 公钥
+	
+	②.建立推送:
+		git remote add origin git@github.com:DoZhHng/learngit.git
+
+	③.推送内容:
+		git push -u origin master
+
+	④.克隆：
+		git clone git@github.com:DoZhHng/gitskills.git					
+
+	
+
+4.branch操作:
+	查看 branch: 			git branch
+	创建 branch: 			git branch <name>
+	切换 branch: 			git checkout <name>
+	创建+切换 branch：		git checkout -b <name>
+	合并某branch到当前branch:	git merge <name>
+	删除 branch:			git branch -d <name>
+	
+
+
+5.保护 工作区、stage 区现场:
+	git stash:			现场保护
+	git stash list:			现场列表
+	git stash pop:			现场提取并删除列表
+	git stash apply stash@{数字}:	现场[数字]提取
+	git stash drop stash@{数字}:	现场[数字]删除 	
+	
+
+6.git branch -D <name>
+	如果要丢弃一个没有被合并过的分支，可以通过git branch -D <name>强行删除。
+
+7.打 tag:
+	git tag <name>:				创建	 tag
+	git tag:				显示所有 tag
+	git show <tagname>:			显示 tag 信息
+	git tag -a <tagname> -m "注释" ID号:	给ID的 commit 创建 tag 并且注释
+	git tag -d <tagname>:			删除 tag 
+
+	
+
+
+
+
+
+
+
+
+
+	
+
+	

@@ -1,0 +1,1 @@
+1.工作区、stage区的变动没有 commit、stash操作不能切换branch
